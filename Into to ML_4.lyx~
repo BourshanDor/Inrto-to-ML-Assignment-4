@@ -1,0 +1,3456 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+
+% Variables to change every new document
+\usepackage{tikz}
+\usepackage{listofitems}
+\usepackage{amsmath}
+\usetikzlibrary{arrows.meta} % for arrow size
+\usepackage[outline]{contour} 
+\usepackage{xcolor}
+\newcommand{\hmwkClass}{\selectlanguage{english}Intro to Machine Learning} % Course/class
+\newcommand{\hmwkNumber}{4} % Assignment number
+
+% Constants to set once
+\newcommand{\hmwkAuthorName}{\selectlanguage{english}Dor Bourshan} % Your name
+\newcommand{\hmwkUserID}{315780122} % User ID
+
+
+% Packages
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage{tikz}
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+% General document properties
+\linespread{1.1} % Line spacing
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+
+% Make a simple command for use in document body
+\newcommand{\start}{
+\maketitle
+\thispagestyle{empty}
+\newpage
+}
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\rhead{\hmwkClass:\ Assignment\ \#\hmwkNumber}
+
+
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+
+
+% The following 2 commands setup the title page
+\title{
+\vspace{2in}
+\textmd{\textbf{\hmwkClass:\ Assignment\ \#\hmwkNumber}}\\
+\normalsize\vspace{0.1in}\small{ \today }\\
+\vspace{3in}
+}
+
+\author{
+  \textbf{\hmwkAuthorName} \\
+  \texttt{\hmwkUserID \hspace{0.1in} \hmwkStudentNumber}
+}
+
+% Do not display standard date since we use a custom date
+\date{}
+
+% make sure you have these fonts, otherwise replace them
+\newfontfamily\hebrewfont{David}[Script=Hebrew]
+\newfontfamily\hebrewfontsf{David}[Script=Hebrew]
+\newfontfamily\hebrewfonttt{David}[Script=Hebrew]
+
+
+\iffalse % set this to false if you want Latin Modern and not New Computer Modern
+
+\newfontfamily\englishfont[%
+  SizeFeatures={%
+{Size=-8, Font=NewCM08-Regular.otf,
+      ItalicFont=NewCM08-Italic.otf,%
+      BoldFont=NewCM10-Bold.otf,%
+      BoldItalicFont=NewCM10-BoldItalic.otf,%
+      SlantedFont=NewCM08-Regular.otf,%
+      BoldSlantedFont=NewCM10-Bold.otf,%
+      SmallCapsFeatures={Numbers=OldStyle}},
+{Size=8, Font=NewCM08-Regular.otf,
+      ItalicFont=NewCM08-Italic.otf,%
+      BoldFont=NewCM10-Bold.otf,%
+      BoldItalicFont=NewCM10-BoldItalic.otf,%
+      SlantedFont=NewCM08-Regular.otf,%
+      BoldSlantedFont=NewCM10-Bold.otf,%
+      SmallCapsFeatures={Numbers=OldStyle}},
+{Size= 9-, Font = NewCM10-Regular.otf,
+      ItalicFont=NewCM10-Italic.otf,%
+      BoldFont=NewCM10-Bold.otf,%
+      BoldItalicFont=NewCM10-BoldItalic.otf,%
+      SlantedFont=NewCM10-Regular.otf,%
+      BoldSlantedFont=NewCM10-Bold.otf,%
+      SmallCapsFeatures={Numbers=OldStyle}}%
+  },%
+  SmallCapsFeatures={Numbers=OldStyle},%
+  BoldSlantedFont=NewCM10-Bold.otf,%
+  SlantedFont=NewCM10-Regular.otf,%
+  BoldItalicFont=NewCM10-BoldItalic.otf,%
+  BoldFont=NewCM10-Bold.otf,%
+  ItalicFont=NewCM10-Italic.otf,%
+  SlantedFeatures={FakeSlant=0.25},%
+  BoldSlantedFeatures={FakeSlant=0.25},%
+]{NewCM10-Regular.otf}
+
+\newfontfamily\englishfontsf[%
+    SizeFeatures={%
+{Size= -8, Font=NewCMSans08-Regular.otf,%
+           ItalicFont=NewCMSans08-Oblique.otf,%
+           BoldFont=NewCMSans10-Bold.otf,%
+           BoldItalicFont=NewCMSans10-BoldOblique.otf,%
+           SmallCapsFeatures={Numbers=OldStyle},%
+},
+{Size= 8, Font=NewCMSans08-Regular.otf,%
+          ItalicFont=NewCMSans08-Oblique.otf,%
+          BoldFont=NewCMSans10-Bold.otf,%
+          BoldItalicFont=NewCMSans10-BoldOblique.otf,%
+          SmallCapsFeatures={Numbers=OldStyle},%
+},
+{Size= 9-, Font=NewCMSans10-Regular.otf,%
+           ItalicFont=NewCMSans10-Oblique.otf,%
+           BoldFont=NewCMSans10-Bold.otf,%
+           BoldItalicFont=NewCMSans10-BoldOblique.otf,%
+           SmallCapsFeatures={Numbers=OldStyle},%
+}},
+           ItalicFont=NewCMSans10-Oblique.otf,%
+           BoldFont=NewCMSans10-Bold.otf,%
+           BoldItalicFont=NewCMSans10-BoldOblique.otf,%
+           SmallCapsFeatures={Numbers=OldStyle},%
+           SlantedFont=NewCMSans10-Oblique.otf,%
+           BoldSlantedFont=NewCMSans10-BoldOblique.otf,%
+]{NewCMSans10-Regular.otf}
+
+\newfontfamily\englishfonttt[%
+ItalicFont=NewCMMono10-Italic.otf,%
+BoldFont=NewCMMono10-Bold.otf,%
+BoldItalicFont=NewCMMono10-BoldOblique.otf,%
+SlantedFont=NewCMMono10-Regular.otf,%
+SlantedFeatures={FakeSlant=0.25},
+BoldSlantedFont=NewCMMono10-Bold.otf,%
+BoldSlantedFeatures={FakeSlant=0.25},
+SmallCapsFeatures={Numbers=OldStyle}]{NewCMMono10-Regular.otf}
+
+\usepackage{unicode-math}
+\setmathfont{NewCMMath-Book.otf}
+\setmathfont{NewCMMath-Book.otf}[version=bold,FakeBold=3]
+\else
+\setmathrm{Latin Modern Math}
+\fi
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-std
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 3cm
+\headheight 2cm
+\headsep 2cm
+\footskip 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip bigskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+start
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\E}{\mathbb{E}}
+{\mathbb{E}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\norm}{\|\textrm{\textbf{x}}\|_{2}}
+{\|\textrm{\textbf{x}}\|_{2}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\normt}{\|\textrm{\textbf{x}}_{t}\|_{2}}
+{\|\textrm{\textbf{x}}_{t}\|_{2}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\normw}{\|\textrm{\textbf{w}}\|_{2}^{2}}
+{\|\textrm{\textbf{w}}\|_{2}^{2}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\Var}{\mathrm{Var}}
+{\mathbf{\mathrm{Var}}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\Cov}{\mathrm{Cov}}
+{\mathbf{\mathrm{Cov}}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\x}{\textrm{\textbf{x}}}
+{\textbf{x}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\w}{\mathit{\mathtt{\textrm{\textbf{w}}}}}
+{\mathit{\mathtt{\textrm{\textbf{w}}}}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\v}{\textrm{\textbf{v}}}
+{\textrm{\textbf{v}}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\y}{\textrm{\textbf{y}}}
+{\textrm{\textbf{y}}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\c}{\textrm{\textbf{c}}}
+{\mathbf{\textrm{\textbf{c}}}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\b}{\textrm{\textbf{b}}}
+{\textrm{\textbf{b}}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\L}{\mathcal{L}}
+{\mathcal{L}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\vecx}{X_{1},\ldots,X_{n}}
+{X_{1},\ldots,X_{n}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\vecy}{Y_{1},\ldots,Y_{m}}
+{Y_{1},\ldots,Y_{m}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\Y}{\mathcal{Y}}
+{\mathcal{Y}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\X}{\mathcal{X}}
+{\mathcal{X}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\H}{\mathcal{H}}
+{\mathcal{H}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\A}{\mathcal{A}}
+{\mathcal{A}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset FormulaMacro
+\newcommand{\1}{\boldsymbol{1}}
+{\boldsymbol{1}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part*
+Theory Questions
+\end_layout
+
+\begin_layout Section
+SVM with multiple classes.
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+יהיו 
+\begin_inset Formula $\x_{1},\ldots,\x_{n}\in\mathbb{R}^{d}$
+\end_inset
+
+ ויהיו 
+\begin_inset Formula $y_{1},\ldots,y_{n}\in\left[K\right]$
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+labels
+\lang hebrew
+ מתוך קבוצה בת 
+\begin_inset Formula $K$
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+labels
+\lang hebrew
+.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נמצא מפריד 
+\begin_inset Formula $\w_{j}$
+\end_inset
+
+ לכל אחד מהמחלקות 
+\begin_inset Formula $j\in\left[K\right]$
+\end_inset
+
+ .
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נגדיר את פונקציית
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+loss
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\lang hebrew
+ הבאה )
+\begin_inset Formula $multiclass\ hinge-loss$
+\end_inset
+
+( : 
+\begin_inset Formula 
+\[
+\ell\left(\w_{1},\ldots,\w_{K},\x_{i},y_{i}\right)=\max_{j\in\left[K\right]}\left(\left\langle \w_{j},\x_{i}\right\rangle -\left\langle \w_{y_{i}},\x_{i}\right\rangle +\1\left(j\neq y_{i}\right)\right)
+\]
+
+\end_inset
+
+ נגדיא את בעיית ה 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+multiclass SVM
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\lang hebrew
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+: 
+\begin_inset Formula 
+\[
+f\left(\w_{1},\ldots,\w_{K}\right)=\frac{1}{n}\sum_{i=1}^{n}\ell\left(\w_{1},\ldots,\w_{K},\x_{i},y_{i}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+אחרי תהליך הלמידה אנחנו נסווג נקודות באופן הבא 
+\begin_inset Formula $\arg\max_{j\in\left[K\right]}\left\langle \w_{j},\x_{i}\right\rangle $
+\end_inset
+
+.
+ נאמר כי אנחנו במקרה בו ה
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+data
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\lang hebrew
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+מופרד.
+ כלומר, קיימים 
+\begin_inset Formula $\w_{1}^{*},\ldots,\w_{K}^{*}$
+\end_inset
+
+ כך ש 
+\begin_inset Formula $y_{i}=\arg\max_{y}\left\langle \w_{y}^{*},\x_{i}\right\rangle $
+\end_inset
+
+ לכל 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ נראה שכל 
+\begin_inset Formula $\w_{1},\ldots,\w_{K}$
+\end_inset
+
+ שממנמנים את 
+\begin_inset Formula $f\left(\w_{1},\ldots,\w_{K}\right)$
+\end_inset
+
+משיגים שגיאה אפס על הקלספיקציה.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+אם כן, אנו נדרשים לבצע 
+\begin_inset Formula 
+\[
+\min_{\w_{1},\ldots,\w_{K}}f\left(\w_{1},\ldots,\w_{K}\right)
+\]
+
+\end_inset
+
+תחילה נפשט את הפונקציה להצגה אינפורמטיבית : 
+\begin_inset Formula 
+\begin{align*}
+f\left(\w_{1},\ldots,\w_{K}\right) & =\frac{1}{n}\sum_{i=1}^{n}\ell\left(\w_{1},\ldots,\w_{K},\x_{i},y_{i}\right)=\frac{1}{n}\sum_{i=1}^{n}\max_{j\in\left[K\right]}\left(\left\langle \w_{j},\x_{i}\right\rangle -\left\langle \w_{y_{i}},\x_{i}\right\rangle +\1\left(j\neq y_{i}\right)\right)\\
+ & =\frac{1}{n}\sum_{i=1}^{n}\max\left\{ \max_{\begin{array}{c}
+j\in\left[K\right]\\
+j\neq y_{i}
+\end{array}}\left(\left\langle \w_{j},\x_{i}\right\rangle -\left\langle \w_{y_{i}},\x_{i}\right\rangle +1\right),0\right\} 
+\end{align*}
+
+\end_inset
+
+כעת אנו יכולים לראות כי 
+\begin_inset Formula 
+\begin{equation}
+f\left(\w_{1},\ldots,\w_{K}\right)\ensuremath{\geq0}\label{eq:1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נראה כי 
+\begin_inset Formula 
+\[
+\ell\left(\w_{1},\ldots,\w_{K},\x_{i},y_{i}\right)\geq\ell_{1-0}\left(h\left(\x_{i}\right),y_{i}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+כלומר אנו נדרשים להראות כי : 
+\begin_inset Formula 
+\[
+\max_{j\in\left[K\right]}\left(\left\langle \w_{j},\x_{i}\right\rangle -\left\langle \w_{y_{i}},\x_{i}\right\rangle +\1\left(j\neq y_{i}\right)\right)\geq\1\left(\arg\max_{j\in\left[K\right]}\left\langle \w_{j},\x_{i}\right\rangle \neq y_{i}\right)
+\]
+
+\end_inset
+
+נפריד למקרים : 
+\end_layout
+
+\begin_layout Itemize
+
+\lang hebrew
+עבור 
+\begin_inset Formula $\arg\max_{j\in\left[K\right]}\left\langle \w_{j},\x_{i}\right\rangle =y_{i}$
+\end_inset
+
+ אנו נקבל כי 
+\begin_inset Formula 
+\[
+\max_{j\in\left[K\right]}\left(\left\langle \w_{j},\x_{i}\right\rangle -\left\langle \w_{y_{i}},\x_{i}\right\rangle +\1\left(j\neq y_{i}\right)\right)\overset{\ref{eq:1}}{\geq}0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\lang hebrew
+אם 
+\begin_inset Formula $\arg\max_{j\in\left[K\right]}\left\langle \w_{j},\x_{i}\right\rangle \neq y_{i}$
+\end_inset
+
+ מתקיים כי קיים 
+\begin_inset Formula $j\neq y_{i}$
+\end_inset
+
+ כך ש 
+\begin_inset Formula $\arg\max_{j\in\left[K\right]}\left\langle \w_{j},\x_{i}\right\rangle =j$
+\end_inset
+
+ כלומר 
+\begin_inset Formula 
+\begin{align*}
+\left\langle \w_{j},\x_{i}\right\rangle  & \geq\left\langle \w_{y_{i}},\x_{i}\right\rangle \implies\left\langle \w_{j},\x_{i}\right\rangle -\left\langle \w_{y_{i}},\x_{i}\right\rangle \geq0\implies\left\langle \w_{j},\x_{i}\right\rangle -\left\langle \w_{y_{i}},\x_{i}\right\rangle +1\geq1\\
+ & \implies\max_{j\in\left[K\right]}\left(\left\langle \w_{j},\x_{i}\right\rangle -\left\langle \w_{y_{i}},\x_{i}\right\rangle +\1\left(j\neq y_{i}\right)\right)\geq1\\
+ & \implies\max_{j\in\left[K\right]}\left(\left\langle \w_{j},\x_{i}\right\rangle -\left\langle \w_{y_{i}},\x_{i}\right\rangle +\1\left(j\neq y_{i}\right)\right)\geq\1\left(\arg\max_{j\in\left[K\right]}\left\langle \w_{j},\x_{i}\right\rangle \neq y_{i}\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+כלומר הראנו כי 
+\begin_inset Formula 
+\begin{equation}
+\ell\left(\w_{1},\ldots,\w_{K},\x_{i},y_{i}\right)\geq\ell_{1-0}\left(h\left(\x_{i}\right),y_{i}\right)\label{eq:2}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נראה כי קיימים 
+\begin_inset Formula $\w_{1}^{**},\ldots,\w_{K}^{**}$
+\end_inset
+
+ כך ש 
+\begin_inset Formula $f\left(\w_{1}^{**},\ldots,\w_{K}^{**}\right)=0$
+\end_inset
+
+ ונקבל מ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ כי הנ
+\begin_inset Quotes erd
+\end_inset
+
+ל מנמנמים את 
+\begin_inset Formula $f$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נזכור כי ה
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+data
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\lang hebrew
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+מופרד.
+ כלומר, קיימים 
+\begin_inset Formula $\w_{1}^{*},\ldots,\w_{K}^{*}$
+\end_inset
+
+ כך ש 
+\begin_inset Formula $y_{i}=\arg\max_{y}\left\langle \w_{y}^{*},\x_{i}\right\rangle $
+\end_inset
+
+ לכל 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נסמן 
+\begin_inset Formula 
+\[
+\max_{1\leq i\leq n}\max_{\begin{array}{c}
+j\in\left[K\right]\\
+j\neq y_{i}
+\end{array}}\left(\left\langle \w_{j}^{*},\x_{i}\right\rangle -\left\langle \w_{y_{i}}^{*},\x_{i}\right\rangle \right)=M
+\]
+
+\end_inset
+
+ונשים לב כי 
+\begin_inset Formula $M$
+\end_inset
+
+ מספר שלילי שכן ה
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+data
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\lang hebrew
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+מופרד וכן 
+\begin_inset Formula $y_{i}=\arg\max_{y}\left\langle \w_{y}^{*},\x_{i}\right\rangle $
+\end_inset
+
+.
+ נסמן 
+\begin_inset Formula $\w_{i}^{**}=-\frac{1}{M}\w_{i}^{*}$
+\end_inset
+
+ .
+ מתקיים כי: 
+\begin_inset Formula 
+\[
+\max_{\begin{array}{c}
+j\in\left[K\right]\\
+j\neq y_{i}
+\end{array}}\left(\left\langle \w_{j}^{**},\x_{i}\right\rangle -\left\langle \w_{y_{i}}^{**},\x_{i}\right\rangle \right)\leq-\frac{1}{M}M=-1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+לפיכך 
+\begin_inset Formula 
+\[
+\max_{\begin{array}{c}
+j\in\left[K\right]\\
+j\neq y_{i}
+\end{array}}\left(\left\langle \w_{j}^{**},\x_{i}\right\rangle -\left\langle \w_{y_{i}}^{**},\x_{i}\right\rangle \right)+1\leq0
+\]
+
+\end_inset
+
+ולכן 
+\begin_inset Formula 
+\[
+\max\left\{ \max_{\begin{array}{c}
+j\in\left[K\right]\\
+j\neq y_{i}
+\end{array}}\left(\left\langle \w_{j}^{**},\x_{i}\right\rangle -\left\langle \w_{y_{i}}^{**},\x_{i}\right\rangle +1\right),0\right\} =0
+\]
+
+\end_inset
+
+כלומר 
+\begin_inset Formula 
+\[
+f\left(\w_{1}^{**},\ldots,\w_{K}^{**}\right)=\frac{1}{n}\sum_{i=1}^{n}\max\left\{ \max_{\begin{array}{c}
+j\in\left[K\right]\\
+j\neq y_{i}
+\end{array}}\left(\left\langle \w_{j}^{**},\x_{i}\right\rangle -\left\langle \w_{y_{i}}^{**},\x_{i}\right\rangle +1\right),0\right\} =\frac{1}{n}\sum_{i=1}^{n}0=0
+\]
+
+\end_inset
+
+כלומר הראנו כי מנמום הפונקציה, משמעו כי קיימים 
+\begin_inset Formula $\w_{1},\ldots,\w_{K}$
+\end_inset
+
+ כך ש 
+\begin_inset Formula $f\left(\w_{1},\ldots,\w_{K}\right)=0$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+אם כן יהיו 
+\begin_inset Formula $\w_{1},\ldots,\w_{K}$
+\end_inset
+
+ כך ש 
+\begin_inset Formula $f\left(\w_{1},\ldots,\w_{K}\right)=0$
+\end_inset
+
+מתקבל כי : 
+\begin_inset Formula 
+\[
+0=f\left(\w_{1},\ldots,\w_{K}\right)=\frac{1}{n}\sum_{i=1}^{n}\ell\left(\w_{1},\ldots,\w_{K},\x_{i},y_{i}\right)\overset{\ref{eq:2}}{\geq}\frac{1}{n}\sum_{i=1}^{n}\ell_{1-0}\left(h\left(\x_{i}\right),y_{i}\right)\geq0
+\]
+
+\end_inset
+
+לפיכך 
+\begin_inset Formula 
+\[
+\frac{1}{n}\sum_{i=1}^{n}\ell_{1-0}\left(h\left(\x_{i}\right),y_{i}\right)=0
+\]
+
+\end_inset
+
+כנדרש.
+  
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\square$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Expressivity of ReLU networks.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+מגדירים את
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+ReLU
+\lang hebrew
+ פונקצית אקטיבציה, באופן הבא : 
+\begin_inset Formula 
+\[
+h\left(x\right)=x^{+}=\max\left\{ 0,x\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נראה כי ניתן לממש את הפונקציה 
+\begin_inset Formula $f\left(x_{1},x_{2}\right)=\max\left\{ x_{1},x_{2}\right\} $
+\end_inset
+
+ באמצעות
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+one hidden layer
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\lang hebrew
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+המורכבת מפונקציית האקטיבציה
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+ReLU
+\lang hebrew
+.
+ ניתן להניח כי אין פונקציית אקטיבציה לאחר השכבה האחרונה.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+אם כן 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename E:/bours/Screenshot 2023-05-12 025837.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+neural network
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+כאשר נגדיר: 
+\begin_inset Formula 
+\begin{align*}
+a_{1}^{\left(1\right)} & =\frac{x_{1}+x_{2}}{2}\\
+a_{2}^{\left(1\right)} & =\frac{x_{1}-x_{2}}{2}\\
+a_{3}^{\left(1\right)} & =\frac{-x_{1}+x_{2}}{2}\\
+a_{4}^{\left(1\right)} & =\frac{-x_{1}-x_{2}}{2}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+וכן 
+\begin_inset Formula 
+\begin{align*}
+z_{1}^{\left(1\right)} & =\max\left\{ \frac{x_{1}+x_{2}}{2},0\right\} \\
+z_{2}^{\left(1\right)} & =\max\left\{ \frac{x_{1}-x_{2}}{2},0\right\} \\
+z_{3}^{\left(1\right)} & =\max\left\{ \frac{-x_{1}+x_{2}}{2},0\right\} \\
+z_{4}^{\left(1\right)} & =\max\left\{ \frac{-x_{1}-x_{2}}{2},0\right\} 
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+וכן 
+\begin_inset Formula 
+\[
+a_{1}^{\left(2\right)}=\sum_{i=1}^{4}z_{i}^{\left(1\right)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נראה עבור חלוקה למקרה אחד, שאר המקרים דומים באופיים.
+ 
+\end_layout
+
+\begin_layout Enumerate
+
+\lang hebrew
+מתקיים כי 
+\begin_inset Formula $x_{1},x_{2}\geq0$
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\lang hebrew
+ולכן מתקיים כי 
+\begin_inset Formula $z_{1}^{\left(1\right)}=\frac{x_{1}+x_{2}}{2}$
+\end_inset
+
+ וכן 
+\begin_inset Formula $z_{4}^{\left(1\right)}=0$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+
+\lang hebrew
+מתקיים כי 
+\begin_inset Formula $x_{1}\geq x_{2}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\lang hebrew
+מתקיים כי 
+\begin_inset Formula $z_{3}^{\left(1\right)}=0$
+\end_inset
+
+ וכן 
+\begin_inset Formula $z_{2}^{\left(1\right)}=\frac{x_{1}-x_{2}}{2}$
+\end_inset
+
+.
+ כמו כן 
+\begin_inset Formula $z_{2}^{\left(1\right)}=\frac{x_{1}-x_{2}}{2}=\frac{\left|x_{1}-x_{2}\right|}{2}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\lang hebrew
+מתקיים כי 
+\begin_inset Formula $x_{1}<x_{2}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\lang hebrew
+מתקיים כי 
+\begin_inset Formula $z_{2}^{\left(1\right)}=0$
+\end_inset
+
+ וכן 
+\begin_inset Formula $z_{3}^{\left(1\right)}=\frac{-x_{1}+x_{2}}{2}$
+\end_inset
+
+.
+ כמו כן 
+\begin_inset Formula $z_{3}^{\left(1\right)}=\frac{-x_{1}+x_{2}}{2}=\frac{\left|x_{1}-x_{2}\right|}{2}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+
+\lang hebrew
+ניתן לראות אם כן כי 
+\begin_inset Formula 
+\[
+a_{1}^{\left(2\right)}=\sum_{i=1}^{4}z_{i}^{\left(1\right)}=\frac{x_{1}+x_{2}}{2}+\frac{\left|x_{1}-x_{2}\right|}{2}=\max\left\{ x_{1},x_{2}\right\} =f\left(x_{1},x_{2}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Formula $\square$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Soft SVM with 
+\begin_inset Formula $\ell^{2}$
+\end_inset
+
+ penalty.
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נניח שקיימת הבעיה הבאה: 
+\begin_inset Formula 
+\begin{align*}
+ & \min_{\w\in\mathbb{R}^{d},b\in\mathbb{R},\boldsymbol{\xi}\in\mathbb{R}^{n}}\frac{1}{2}\normw+\frac{C}{2}\sum_{i=1}^{n}\xi_{i}^{2}\\
+ & \text{s.t. }y_{i}\left(\w^{\top}\x_{i}+b\right)\geq1-\xi_{i}\ \ \forall i=1,\ldots,n
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+section (a) 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נראה תחילה כי אם נוסיף את האילוץ 
+\begin_inset Formula $\xi_{i}\geq0$
+\end_inset
+
+ לא נשנה את הפיתרון המינימלי.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+אם כן תהיי 
+\begin_inset Formula $I\subseteq\left[n\right]$
+\end_inset
+
+ קבוצת אינדקסים כך שלכל 
+\begin_inset Formula $i\in I$
+\end_inset
+
+ מתקיים 
+\begin_inset Formula 
+\[
+\xi_{i}<0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+יהיי 
+\begin_inset Formula $\w\in\mathbb{R}^{d},b\in\mathbb{R},\boldsymbol{\xi}\in\mathbb{R}^{n}$
+\end_inset
+
+ פתרון אופטימלי.
+ מתקיים אם כן כי 
+\begin_inset Formula 
+\begin{align*}
+y_{i}\left(\w^{\top}\x_{i}+b\right) & \geq1-\xi_{i}\geq1+\xi_{i}\ \ \forall i\in I\\
+y_{i}\left(\w^{\top}\x_{i}+b\right) & \geq1-\xi_{i}\ \ \ \ \ \ \ \ \ \ \ \forall i\in\left[n\right]\backslash I
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נשים לב כי בפונקציה המנומנמת, אין חשיבות לסימן של 
+\begin_inset Formula $\xi_{i}$
+\end_inset
+
+ ולכן עבור 
+\begin_inset Formula $i\in I$
+\end_inset
+
+ אם נחליף את 
+\begin_inset Formula $\xi_{i}$
+\end_inset
+
+ ב 
+\begin_inset Formula $-\xi_{i}$
+\end_inset
+
+ נקבל שהאילוצים מתקיימים וכן ערך הפונקציה המנומנמת זהה.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+כלומר נוכל לעבור לבעיה הבאה: 
+\begin_inset Formula 
+\begin{align*}
+ & \min_{\w\in\mathbb{R}^{d},b\in\mathbb{R},\boldsymbol{\xi}\in\mathbb{R}^{n}}\frac{1}{2}\normw+\frac{C}{2}\sum_{i=1}^{n}\xi_{i}^{2}\\
+ & \text{s.t. }y_{i}\left(\w^{\top}\x_{i}+b\right)\geq1-\xi_{i}\ \ \forall i=1,\ldots,n\\
+ & \xi_{i}\geq0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \forall i=1,\ldots,n
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\square$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+section (b) 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נרשום את פונקציית הלגרנג'יאן של הבעיה : 
+\begin_inset Formula 
+\begin{align*}
+ & \min_{\w\in\mathbb{R}^{d},b\in\mathbb{R},\boldsymbol{\xi}\in\mathbb{R}^{n}}\frac{1}{2}\normw+\frac{C}{2}\sum_{i=1}^{n}\xi_{i}^{2}\\
+ & \text{s.t. }0\geq1-\xi_{i}-y_{i}\left(\w^{\top}\x_{i}+b\right)\ \ \forall i=1,\ldots,n\\
+ & 0\geq-\xi_{i}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \forall i=1,\ldots,n
+\end{align*}
+
+\end_inset
+
+אם כן 
+\begin_inset Formula 
+\[
+\L\left(\w,b,\boldsymbol{\xi},\boldsymbol{\alpha},\boldsymbol{\beta}\right)=\frac{1}{2}\normw+\frac{C}{2}\sum_{i=1}^{n}\xi_{i}^{2}+\sum_{i=1}^{n}\alpha_{i}\left(1-\xi_{i}-y_{i}\left(\w^{\top}\x_{i}+b\right)\right)+\sum_{i=1}^{n}\beta_{i}\left(-\xi_{i}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+כאשר אין בבעיה אילוצי שוויון.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\square$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+section (c) 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נמנמם את הפונקציה ביחס ל 
+\begin_inset Formula $\w,b,\boldsymbol{\xi}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+ראשית נסדר את הפונקציה 
+\begin_inset Formula 
+\[
+\L\left(\w,b,\boldsymbol{\xi}\right)=\frac{1}{2}\sum_{i=1}^{n}\left(w_{i}^{2}-2\alpha_{i}y_{i}\left(w_{i}\left(\sum x_{i,1}\right)\right)\right)+\frac{C}{2}\sum_{i=1}^{n}\left(\xi_{i}^{2}-\frac{2}{C}\xi_{i}\left(\alpha_{i}+\beta_{i}\right)\right)+\sum_{i=1}^{n}\alpha_{i}y_{i}b+\sum_{i=1}^{n}\alpha_{i}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+כעת ניתן לראות כי זו פונקציה של סכומים של פונקציות קמורות, ולכן קמורה )מתרגיל
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\numeric on
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+3
+\numeric off
+(.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+אם נגזור אותה ונשווה לאפס, נמצא את המינימום.
+ אם כן 
+\begin_inset Formula 
+\begin{align*}
+\nabla_{\w}\L & =\w-\sum_{i=1}^{n}\alpha_{i}y_{i}\x_{i}=0\implies\w=\sum_{i=1}^{n}\alpha_{i}y_{i}\x_{i}\\
+\frac{\partial\L}{\partial b} & =\sum_{i=1}^{n}\alpha_{i}y_{i}=0\\
+\frac{\partial\L}{\partial\xi_{i}} & =C\cdot\xi_{i}-\left(\alpha_{i}+\beta_{i}\right)=0\implies\xi_{i}=\frac{\alpha_{i}+\beta_{i}}{C}
+\end{align*}
+
+\end_inset
+
+נשים לב כי אם 
+\begin_inset Formula 
+\[
+\sum_{i=1}^{n}\alpha_{i}y_{i}\neq0
+\]
+
+\end_inset
+
+ אין לבעיה פתרון.
+ כיוון שניתן לקחת 
+\begin_inset Formula $b$
+\end_inset
+
+ ולהגיע לערך כרצוננו.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נציב ונקבל 
+\begin_inset Formula 
+\begin{align*}
+\L\left(\w,b,\boldsymbol{\xi}\right) & =\frac{1}{2}\normw-\w^{\top}\underset{\w}{\underbrace{\sum_{i=1}^{n}\alpha_{i}y_{i}\x_{i}}}+\sum_{i=1}^{n}\alpha_{i}-\frac{1}{2C}\sum_{i=1}^{n}\left(\alpha_{i}+\beta_{i}\right)^{2}+b\sum_{i=1}^{n}\alpha_{i}y_{i}\\
+ & =-\frac{1}{2}\normw-\frac{1}{2C}\sum_{i=1}^{n}\left(\alpha_{i}+\beta_{i}\right)^{2}+\sum_{i=1}^{n}\alpha_{i}\\
+ & =\boxed{-\frac{1}{2}\normw-\frac{1}{2C}\sum_{i=1}^{n}\left(\alpha_{i}+\beta_{i}\right)^{2}+\sum_{i=1}^{n}\alpha_{i}}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+section (d) 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+ונסמן את הדואלית ב 
+\begin_inset Formula 
+\[
+g\left(\boldsymbol{\alpha},\boldsymbol{\beta}\right)=
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+וכדי לפתור את הבעיה יש למקסם אותה, או למנמם את =
+\begin_inset Formula 
+\begin{align*}
+\frac{1}{2}\normw+\frac{1}{2C}\sum_{i=1}^{n}\left(\alpha_{i}+\beta_{i}\right)^{2}-\sum_{i=1}^{n}\alpha_{i} & =\frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^{n}\alpha_{i}\alpha_{j}y_{i}y_{j}\x_{i}\x_{j}+\frac{1}{2C}\sum_{i=1}^{n}\alpha_{i}^{2}+2\alpha_{i}\beta_{i}+\beta_{i}^{2}-\sum_{i=1}^{n}\alpha_{i}=\\
+ & =\frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^{n}\alpha_{i}\alpha_{j}y_{i}y_{j}\x_{i}\x_{j}+\frac{1}{2C}\|\boldsymbol{\alpha}\|_{2}^{2}+\frac{1}{2C}\|\boldsymbol{\beta}\|_{2}^{2}+\frac{1}{C}\sum_{i=1}^{n}\alpha_{i}\left(\beta_{i}-C\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\square$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+section (b) 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\square$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Gradient Sedcent on Smooth Functions.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\lang hebrew
+הגדרה : 
+\series default
+נאמר שפונקציה 
+\begin_inset Formula $f:\mathbb{R}^{n}\rightarrow\mathbb{R}$
+\end_inset
+
+ המקיימת 
+\begin_inset Formula $f\in C^{1}$
+\end_inset
+
+ היא 
+\begin_inset Formula $\beta-\text{smooth}$
+\end_inset
+
+ אם לכל 
+\begin_inset Formula $\x,\y\in\mathbb{R}^{n}$
+\end_inset
+
+ מתקיים 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset Formula 
+\[
+f\left(\y\right)\leq f\left(\x\right)+\nabla f\left(\x\right)^{\top}\left(\y-\x\right)+\frac{\beta}{2}\|\x-\y\|^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+תהיי 
+\begin_inset Formula $f:\mathbb{R}^{n}\rightarrow\mathbb{R}$
+\end_inset
+
+ פונקציה 
+\begin_inset Formula $\beta-\text{smooth}$
+\end_inset
+
+ ואי שלילית.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נניח כי
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+gradient descent algorithm
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\lang hebrew
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+מבוצע על 
+\begin_inset Formula $f$
+\end_inset
+
+ עם 
+\begin_inset Formula $\eta>0$
+\end_inset
+
+, כלומר 
+\begin_inset Formula 
+\[
+\x_{t+1}\leftarrow\x_{t}-\eta\nabla f\left(\x_{t}\right)
+\]
+
+\end_inset
+
+ונניח כי אנו מתחילים בנקודה 
+\begin_inset Formula $\x_{0}$
+\end_inset
+
+כלשהי.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נראה כי אם מתקיים ש 
+\begin_inset Formula $\eta<\frac{2}{\beta}$
+\end_inset
+
+ אז מתקיים ש
+\begin_inset Formula 
+\[
+\lim_{t\rightarrow\infty}\|\nabla f\left(\x_{t}\right)\|=0
+\]
+
+\end_inset
+
+אם כן, מהיות 
+\begin_inset Formula $f$
+\end_inset
+
+ פונקציה 
+\begin_inset Formula $\beta-\text{smooth}$
+\end_inset
+
+ ואי שלילית מתקיים עבור 
+\begin_inset Formula $\x_{t+1},\x_{t}$
+\end_inset
+
+ כי: 
+\begin_inset Formula 
+\[
+f\left(\x_{t+1}\right)\leq f\left(\x_{t}\right)+\nabla f\left(\x_{t}\right)^{\top}\left(\x_{t+1}-\x_{t}\right)+\frac{\beta}{2}\|\x_{t}-\x_{t+1}\|^{2}
+\]
+
+\end_inset
+
+נזכור כי 
+\begin_inset Formula $\x_{t+1}\leftarrow\x_{t}-\eta\nabla f\left(\x_{t}\right)$
+\end_inset
+
+ ולכן 
+\begin_inset Formula 
+\[
+f\left(\x_{t+1}\right)-f\left(\x_{t}\right)\leq\nabla f\left(\x_{t}\right)^{\top}\left(-\eta\nabla f\left(\x_{t}\right)\right)+\frac{\beta}{2}\|\eta\nabla f\left(\x_{t}\right)\|^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+כלומר 
+\begin_inset Formula 
+\[
+f\left(\x_{t+1}\right)-f\left(\x_{t}\right)\leq-\eta\|\nabla f\left(\x_{t}\right)\|^{2}+\frac{\beta}{2}\eta^{2}\|\nabla f\left(\x_{t}\right)\|^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+כלומר 
+\begin_inset Formula 
+\[
+f\left(\x_{t+1}\right)-f\left(\x_{t}\right)\leq\|\nabla f\left(\x_{t}\right)\|^{2}\left(\frac{\beta}{2}\eta^{2}-\eta\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נזכור את ההנחה כי 
+\begin_inset Formula $0<\eta<\frac{2}{\beta}$
+\end_inset
+
+ ולכן מתקיים כי 
+\begin_inset Formula 
+\[
+\eta^{2}\frac{\beta}{2}-\eta<0
+\]
+
+\end_inset
+
+או לחלופין 
+\begin_inset Formula 
+\[
+^{1}\ \ \eta-\eta^{2}\frac{\beta}{2}>0
+\]
+
+\end_inset
+
+ולכן 
+\begin_inset Formula 
+\[
+\left(\frac{\beta}{2}\eta^{2}-\eta\right)^{-1}f\left(\x_{t+1}\right)-f\left(\x_{t}\right)\geq\|\nabla f\left(\x_{t}\right)\|^{2}\geq0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+הנ
+\begin_inset Quotes erd
+\end_inset
+
+ל נכון לכל 
+\begin_inset Formula $t$
+\end_inset
+
+, ננצל זאת על מנת לקבל סכום טלסקופי 
+\begin_inset Formula 
+\[
++\begin{cases}
+\left(\frac{\beta}{2}\eta^{2}-\eta\right)^{-1}f\left(\x_{t+1}\right)-f\left(\x_{t}\right)\geq\|\nabla f\left(\x_{t}\right)\|^{2}\\
+\left(\frac{\beta}{2}\eta^{2}-\eta\right)^{-1}f\left(\x_{t}\right)-f\left(\x_{t-1}\right)\geq\|\nabla f\left(\x_{t-1}\right)\|^{2}\\
+\vdots\\
+\left(\frac{\beta}{2}\eta^{2}-\eta\right)^{-1}f\left(\x_{1}\right)-f\left(\x_{0}\right)\geq\|\nabla f\left(\x_{0}\right)\|^{2}
+\end{cases}
+\]
+
+\end_inset
+
+ונקבל 
+\begin_inset Formula 
+\[
+\left(\eta-\frac{\beta}{2}\eta^{2}\right)^{-1}\left(f\left(\x_{0}\right)-f\left(\x_{t+1}\right)\right)\geq\sum_{t=0}^{T}\|\nabla f\left(\x_{t}\right)\|^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+כאשר נשים לב כי מהיותה של 
+\begin_inset Formula $f$
+\end_inset
+
+ אי שלילית וכן 
+\begin_inset Formula $\left(\eta-\frac{\beta}{2}\eta^{2}\right)^{-1}>0$
+\end_inset
+
+ 
+\begin_inset Formula $^{1}$
+\end_inset
+
+מתקיים כי 
+\begin_inset Formula 
+\[
+\left(\eta-\frac{\beta}{2}\eta^{2}\right)^{-1}f\left(\x_{0}\right)\geq\sum_{t=0}^{T}\|\nabla f\left(\x_{t}\right)\|^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+כלומר לכל 
+\begin_inset Formula $T$
+\end_inset
+
+ 
+\begin_inset Formula 
+\begin{equation}
+positive-const\geq\sum_{t=0}^{T}\|\nabla f\left(\x_{t}\right)\|^{2}\label{eq:1-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נסמן 
+\begin_inset Formula 
+\[
+S_{T}=\sum_{t=0}^{T}\|\nabla f\left(\x_{t}\right)\|^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+מכך ש 
+\begin_inset Formula $\left\{ S_{T}\right\} _{T=0}^{\infty}$
+\end_inset
+
+ זו סדרה מונוטונית עולה ) 
+\begin_inset Formula $\|\nabla f\left(\x_{t}\right)\|^{2}\geq0$
+\end_inset
+
+( , וחסומה 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:1-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, היא מתכנסת.
+ כלומר 
+\begin_inset Formula 
+\[
+\sum_{t=0}^{\infty}\|\nabla f\left(\x_{t}\right)\|^{2}=L
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+ממשפט בקורס חדוו
+\begin_inset Quotes erd
+\end_inset
+
+א אנו יודעים שבגלל ש 
+\begin_inset Formula $\|\nabla f\left(\x_{t}\right)\|^{2}\geq0$
+\end_inset
+
+ והטור 
+\begin_inset Formula $\sum_{t=0}^{\infty}\|\nabla f\left(\x_{t}\right)\|^{2}$
+\end_inset
+
+ מתכנס, מתקיים כי 
+\begin_inset Formula 
+\[
+\lim_{t\rightarrow\infty}\|\nabla f\left(\x_{t}\right)\|^{2}=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נשים לב כי שנורמה היא אי שלילית, וכן מתקיים כי:  
+\begin_inset Formula 
+\[
+\|\nabla f\left(\x_{t}\right)\|=\sqrt{\|\nabla f\left(\x_{t}\right)\|^{2}}\geq0
+\]
+
+\end_inset
+
+ ולכן ממשפט בקורס חדוו
+\begin_inset Quotes erd
+\end_inset
+
+א : 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\lang hebrew
+משפט : 
+\series default
+אם 
+\begin_inset Formula $f$
+\end_inset
+
+ רציפה ומתקיים כי 
+\begin_inset Formula $\lim_{n\rightarrow\infty}a_{n}=L$
+\end_inset
+
+ אזי 
+\begin_inset Formula $\lim_{n\rightarrow\infty}f\left(a_{n}\right)=f\left(L\right)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+ולכן, כיוון ש 
+\begin_inset Formula $f\left(x\right)=\sqrt{x}$
+\end_inset
+
+ פונקציה רציפה מתקיים כי 
+\begin_inset Formula 
+\[
+\lim_{t\rightarrow\infty}\|\nabla f\left(\x_{t}\right)\|=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+כנדרש.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\square$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part*
+Programming Assignment
+\end_layout
+
+\begin_layout Section
+SGD for Hinge loss.
+ 
+\end_layout
+
+\begin_layout Subsection
+(a) 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+כדי לבחור את 
+\begin_inset Formula $\eta_{0}$
+\end_inset
+
+ הטוב ביותר, ניתן לאלגוריתם ערכים שהחלו ב 
+\begin_inset Formula 
+\[
+\left(10^{-5},10^{-4},\ldots,10^{4},10^{5}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset Formula $\eta_{0}$
+\end_inset
+
+ הטוב ביותר שהתקבל הוא 
+\begin_inset Formula $\eta_{0}=1$
+\end_inset
+
+ עם
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+accuracy
+\begin_inset Formula $=0.979$
+\end_inset
+
+
+\lang hebrew
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נתמקד באזור בשבו התקבלה התוצאה הטובה ביותר, והאלגוריתם הורץ שנית )ברזולוציית
+ קפיצות קטנה יותר( 
+\begin_inset Formula 
+\[
+\left(-9999,-9899,\ldots,9801,9901\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset Formula $\eta_{0}$
+\end_inset
+
+ הטוב ביותר שהתקבל הוא 
+\begin_inset Formula $\eta_{0}=1$
+\end_inset
+
+ עם
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+accuracy
+\begin_inset Formula $=0.977$
+\end_inset
+
+
+\lang hebrew
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נתמקד באזור בשבו התקבלה התוצאה הטובה ביותר, והאלגוריתם הורץ שלישית )ברזולוציית
+ קפיצות קטנה יותר( 
+\begin_inset Formula 
+\[
+\left(-499,-489,\ldots,481,491\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset Formula $\eta_{0}$
+\end_inset
+
+ הטוב ביותר שהתקבל הוא 
+\begin_inset Formula $\eta_{0}=1$
+\end_inset
+
+ עם
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+accuracy
+\begin_inset Formula $=0.979$
+\end_inset
+
+
+\lang hebrew
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+לאחר שהובן כח הערכים מתכנסים ל 
+\begin_inset Formula $\eta_{0}=1$
+\end_inset
+
+ הורץ בפעם הרביעית על 
+\begin_inset Formula 
+\[
+\left(0.5,0.51,\ldots,1.49,1.5\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset Formula $\eta_{0}$
+\end_inset
+
+ הטוב ביותר שהתקבל הוא 
+\begin_inset Formula $\eta_{0}=1$
+\end_inset
+
+ עם
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+accuracy
+\begin_inset Formula $=0.981$
+\end_inset
+
+
+\lang hebrew
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename section _a_plots/1.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename section _a_plots/2.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename section _a_plots/3.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename section _a_plots/averaging the accuracy on the validation set across 10 runs(0.5,1.5,0.01).png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+accuracy as function of 
+\begin_inset Formula $\eta_{0}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+(b) 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+כדי לבחור את 
+\begin_inset Formula $C$
+\end_inset
+
+ הטוב ביותר, ניתן לאלגוריתם ערכים שהחלו ב 
+\begin_inset Formula 
+\[
+\left(10^{-5},10^{-4},\ldots,10^{4},10^{5}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset Formula $C$
+\end_inset
+
+ הטוב ביותר שהתקבל הוא 
+\begin_inset Formula $C=10^{-4}$
+\end_inset
+
+ עם
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+accuracy
+\begin_inset Formula $=0.986$
+\end_inset
+
+
+\lang hebrew
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נתמקד באזור בשבו התקבלה התוצאה הטובה ביותר, והאלגוריתם הורץ שנית )ברזולוציית
+ קפיצות קטנה יותר( 
+\begin_inset Formula 
+\[
+\left(-9999.9999,-9899.9999,\ldots,9800.0001,9900.0001\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset Formula $C$
+\end_inset
+
+ הטוב ביותר שהתקבל הוא 
+\begin_inset Formula $C=0.0001$
+\end_inset
+
+ עם
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+accuracy
+\begin_inset Formula $=0.987$
+\end_inset
+
+
+\lang hebrew
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename section_b_plots/1.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename section_b_plots/2.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+accuracy as function of 
+\begin_inset Formula $C$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+(c) 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+ניתן לראות כי הפיקסלים הלבנים באמצע יכולים להעיד על אמצע הספרה 
+\begin_inset Formula $8$
+\end_inset
+
+ והפיקסלים בצבעי לבן - אפור בצדדים מעידים על הספרה 
+\begin_inset Formula $8$
+\end_inset
+
+ גם כן.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+הפיקסלים השחורים מעידים על הספרה 
+\begin_inset Formula $0$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename section_c_image/1.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $\w$
+\end_inset
+
+ as an image
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+(d)
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+על סט הבדיקה התקבל : 
+\begin_inset Formula 
+\[
+accuracy=0.992835
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+SGD for log-loss.
+ 
+\end_layout
+
+\begin_layout Subsection
+(a) 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+כדי לבחור את 
+\begin_inset Formula $\eta_{0}$
+\end_inset
+
+ הטוב ביותר, ניתן לאלגוריתם ערכים שהחלו ב 
+\begin_inset Formula 
+\[
+\left(10^{-5},10^{-4},\ldots,10^{4},10^{5}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset Formula $\eta_{0}$
+\end_inset
+
+ הטוב ביותר שהתקבל הוא 
+\begin_inset Formula $\eta_{0}=10^{-5}$
+\end_inset
+
+ עם
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+accuracy
+\begin_inset Formula $=0.955$
+\end_inset
+
+
+\lang hebrew
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+נתמקד באזור בשבו התקבלה התוצאה הטובה ביותר, והאלגוריתם הורץ שנית )ברזולוציית
+ קפיצות קטנה יותר( 
+\begin_inset Formula 
+\[
+\left(-9999,-9899,\ldots,9801,9901\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+\begin_inset Formula $\eta_{0}$
+\end_inset
+
+ הטוב ביותר שהתקבל הוא 
+\begin_inset Formula $\eta_{0}=10^{-5}$
+\end_inset
+
+ עם
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+accuracy
+\begin_inset Formula $=0.959$
+\end_inset
+
+
+\lang hebrew
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename q2/1.png
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename q2/2.png
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+accuracy as function of 
+\begin_inset Formula $\eta_{0}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+(b) 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename q2/3.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $\w$
+\end_inset
+
+ as an image
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+על סט הבדיקה התקבל : 
+\begin_inset Formula 
+\[
+accuracy=0.973
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+(c) 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename q2/4.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $\|\w_{t}\|_{2}$
+\end_inset
+
+ as function of 
+\begin_inset Formula $t$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang hebrew
+ניתן הסבר : 
+\end_layout
+
+\begin_layout Itemize
+
+\lang hebrew
+ההגעה לערך המינימלי של פונקציית
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+log-loss
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\lang hebrew
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ע
+\begin_inset Quotes erd
+\end_inset
+
+י אלגוריתם
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang english
+SGD
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\lang hebrew
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+מתבצע מהר, ולכן 
+\begin_inset Formula $\w$
+\end_inset
+
+ 
+\begin_inset Quotes eld
+\end_inset
+
+נלכד
+\begin_inset Quotes erd
+\end_inset
+
+ בערך המינימלי ולכן 
+\begin_inset Formula $\|\w_{t}\|_{2}$
+\end_inset
+
+ אינו משתנה לאחר האיטרציות הראשונות יחסית ל 
+\begin_inset Formula $20,000$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\lang hebrew
+בכל שלב 
+\begin_inset Formula $\eta$
+\end_inset
+
+ קטן, ולכן השינוי ב
+\begin_inset Formula $\|\w_{t}\|_{2}$
+\end_inset
+
+ , שתלוי בו, יקטן ככל ש 
+\begin_inset Formula $t$
+\end_inset
+
+ גדל.
+ 
+\end_layout
+
+\end_body
+\end_document
