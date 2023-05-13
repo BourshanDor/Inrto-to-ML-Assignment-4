@@ -117,35 +117,36 @@ class Network(object):
         as described in the assignment pdf. """
 
         # TODO: Your backprop implementation.
-        L = self.num_layers
-        db = np.zeros(L)
-        dw = np.zeros(L)
-        z = self.z_arr(x)
-        L -= 1
-        delta = self.loss_derivative_wr_output_activations(z[L])
-        while L < 0:
-            relu_der = relu_derivative(z[L])
+        L = self.num_layers - 1
+        db = [0 for i in range(L)]
+        dw = [0 for i in range(L)]
+        z, v = self.z_v_arr(x)  # L+1 'z' and L 'v'
+        delta = self.loss_derivative_wr_output_activations(z[L], y)
+        L -= 1  # L = 1
+        while L >= 0:
+            relu_der = relu_derivative(v[L])
             db[L] = np.multiply(relu_der, delta)
-            dw[L] = np.dot(np.multiply(relu_der, delta).reshape(-1,
-                           1), np.transpose(z[L-1]).reshape(1, -1))
+            dw[L] = np.dot(np.multiply(relu_der, delta).reshape(-1, 1),
+                           np.transpose(z[L]).reshape(1, -1))
             delta = np.dot(self.weights[L].transpose(),
                            np.multiply(relu_der, delta))
             L -= 1
         return db, dw
 
-    def z_arr(self, x):
+    def z_v_arr(self, x):
         z = [x]
+        v = []
         layer = 0
 
         for b, w in zip(self.biases, self.weights):
-
+            v.append(np.dot(w, z[layer]) + b)
             if layer == len(self.weights) - 1:
                 z.append(np.dot(w, z[layer]) + b)
             else:
                 z.append(relu(np.dot(w, z[layer])+b))
             layer += 1
 
-        return np.array(z)
+        return np.array(z), np.array(v)
 
     def one_label_accuracy(self, data):
         """Return accuracy of network on data with numeric labels"""
@@ -216,21 +217,21 @@ def relu(z):
     """TODO: Implement the relu function."""
     h_v = []
     for num in z:
-        if num > 0:
+        if num[0] > 0:
             h_v.append(num)
         else:
-            h_v.append(0)
+            h_v.append([0])
 
-    return h_v
+    return np.array(h_v)
 
 
 def relu_derivative(z):
     """TODO: Implement the derivative of the relu function."""
     derivative = []
     for num in z:
-        if num > 0:
-            derivative.append(1)
+        if num[0] > 0:
+            derivative.append([1])
         else:
-            derivative.append(0)
+            derivative.append([0])
 
-    return derivative
+    return np.array(derivative)
