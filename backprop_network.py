@@ -80,6 +80,40 @@ class Network(object):
             print("Epoch {0} test accuracy: {1}".format(
                 j, self.one_label_accuracy(test_data)))
 
+    def SGD_for_plot(self, training_data, epochs, mini_batch_size, learning_rate,
+
+                     test_data):
+        """Train the neural network using mini-batch stochastic
+
+        gradient descent.  The ``training_data`` is a list of tuples
+
+        ``(x, y)`` representing the training inputs and the desired
+
+        outputs.  """
+        y_axis = []
+
+        n = len(training_data)
+
+        for j in range(epochs):
+
+            random.shuffle(training_data)
+
+            mini_batches = [
+
+                training_data[k:k+mini_batch_size]
+
+                for k in range(0, n, mini_batch_size)]
+
+            for mini_batch in mini_batches:
+
+                self.update_mini_batch(mini_batch, learning_rate)
+
+
+            y_axis.append([self.one_label_accuracy(test_data),self.one_hot_accuracy(training_data), self.loss(training_data)] )
+
+
+        return y_axis
+
     def update_mini_batch(self, mini_batch, learning_rate):
         """Update the network's weights and biases by applying
 
@@ -116,37 +150,49 @@ class Network(object):
 
         as described in the assignment pdf. """
 
-        # TODO: Your backprop implementation.
-        L = self.num_layers - 1
-        db = [0 for i in range(L)]
-        dw = [0 for i in range(L)]
-        z, v = self.z_v_arr(x)  # L+1 'z' and L 'v'
-        delta = self.loss_derivative_wr_output_activations(z[L], y)
-        L -= 1  # L = 1
+        # # TODO: Your backprop implementation.
+        L = self.num_layers
+        dw = [0 for i in range(L - 1)]
+        z, v = self.forward(x) 
+        delta = self.backward(z, v, y)
+        L -= 2
         while L >= 0:
-            relu_der = relu_derivative(v[L])
-            db[L] = np.multiply(relu_der, delta)
-            dw[L] = np.dot(np.multiply(relu_der, delta).reshape(-1, 1),
-                           np.transpose(z[L]).reshape(1, -1))
-            delta = np.dot(self.weights[L].transpose(),
-                           np.multiply(relu_der, delta))
+            dw[L] = np.dot(delta[L], np.transpose(z[L]))
             L -= 1
-        return db, dw
 
-    def z_v_arr(self, x):
-        z = [x]
+        return delta, dw
+
+    def forward(self, x):
+        z = [np.copy(x)]
         v = []
         layer = 0
 
         for b, w in zip(self.biases, self.weights):
-            v.append(np.dot(w, z[layer]) + b)
-            if layer == len(self.weights) - 1:
-                z.append(np.dot(w, z[layer]) + b)
+
+            v.append(np.dot(w, z[-1]) + b)
+
+            if layer == self.num_layers - 2:
+                z.append(v[-1])
+
             else:
-                z.append(relu(np.dot(w, z[layer])+b))
+                z.append(relu(v[-1]))
+
             layer += 1
 
-        return np.array(z), np.array(v)
+        return z, v
+
+    def backward(self, z, v, y):
+        '''http://neuralnetworksanddeeplearning.com/chap2.html'''
+        
+        delta = [0 for i in range(self.num_layers - 1)]
+        delta[-1] = self.loss_derivative_wr_output_activations(z[-1], y)
+        l = self.num_layers - 3
+
+        while l >= 0:
+            delta[l] = np.multiply(np.transpose(
+                self.weights[l+1]).dot(delta[l+1]), relu_derivative(v[l]),)
+            l -= 1
+        return delta
 
     def one_label_accuracy(self, data):
         """Return accuracy of network on data with numeric labels"""
@@ -215,23 +261,9 @@ class Network(object):
 
 def relu(z):
     """TODO: Implement the relu function."""
-    h_v = []
-    for num in z:
-        if num[0] > 0:
-            h_v.append(num)
-        else:
-            h_v.append([0])
-
-    return np.array(h_v)
+    return z * (z > 0)  # element wise
 
 
 def relu_derivative(z):
     """TODO: Implement the derivative of the relu function."""
-    derivative = []
-    for num in z:
-        if num[0] > 0:
-            derivative.append([1])
-        else:
-            derivative.append([0])
-
-    return np.array(derivative)
+    return 1 * (z > 0)  # element wise
