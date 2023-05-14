@@ -151,16 +151,8 @@ class Network(object):
         as described in the assignment pdf. """
 
         # # TODO: Your backprop implementation.
-        L = self.num_layers
-        dw = [0 for i in range(L - 1)]
         z, v = self.forward(x) 
-        delta = self.backward(z, v, y)
-        L -= 2
-        while L >= 0:
-            dw[L] = np.dot(delta[L], np.transpose(z[L]))
-            L -= 1
-
-        return delta, dw
+        return self.backward(z, v, y)
 
     def forward(self, x):
         z = [np.copy(x)]
@@ -182,17 +174,21 @@ class Network(object):
         return z, v
 
     def backward(self, z, v, y):
-        '''http://neuralnetworksanddeeplearning.com/chap2.html'''
-        
+    
         delta = [0 for i in range(self.num_layers - 1)]
-        delta[-1] = self.loss_derivative_wr_output_activations(z[-1], y)
-        l = self.num_layers - 3
+        dw = [0 for i in range(self.num_layers - 1)]
 
-        while l >= 0:
-            delta[l] = np.multiply(np.transpose(
-                self.weights[l+1]).dot(delta[l+1]), relu_derivative(v[l]),)
-            l -= 1
-        return delta
+        for l in range(self.num_layers - 2, -1 , -1):
+
+            if l == self.num_layers - 2 : 
+                delta[l] = self.loss_derivative_wr_output_activations(z[-1], y)
+            else : 
+                delta[l] = np.multiply(np.transpose(self.weights[l+1]).dot
+                                       (delta[l+1]), relu_derivative(v[l]))
+                
+            dw[l] = np.dot(delta[l], np.transpose(z[l]))
+
+        return delta, dw
 
     def one_label_accuracy(self, data):
         """Return accuracy of network on data with numeric labels"""
@@ -261,9 +257,9 @@ class Network(object):
 
 def relu(z):
     """TODO: Implement the relu function."""
-    return z * (z > 0)  # element wise
+    return z * (z > 0)  # elementwise
 
 
 def relu_derivative(z):
     """TODO: Implement the derivative of the relu function."""
-    return 1 * (z > 0)  # element wise
+    return 1 * (z > 0)  # elementwise

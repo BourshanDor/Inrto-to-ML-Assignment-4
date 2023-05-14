@@ -15,7 +15,7 @@ training_accuracy  =[]
 training_loss      =[] 
 test_accuracy      =[]
 
-purposes = ['training_accuracy', 'training_loss','test_accuracy' ]
+purposes = ['Test accuracy', 'Training accuracy', 'Training loss']
 
 for learning_rate in learning_rates:
 
@@ -26,22 +26,20 @@ for learning_rate in learning_rates:
         a.append(y[i][0])
         b.append(y[i][1])
         c.append(y[i][2])
-        print(a)
     
-    training_accuracy.append(a)
-    training_loss.append(b)
-    test_accuracy.append(c) 
+    test_accuracy.append(a)
+    training_accuracy.append(b)
+    training_loss.append(c) 
 
 
 j = 0 
 
-y_axis = [training_accuracy, training_loss, test_accuracy]
+y_axis = [test_accuracy, training_accuracy, training_loss]
 for y in y_axis:
     i = 0
 
     for axis in y : 
         plt.plot(x_axis, axis, label=str(learning_rates[i]))
-        print('1')
         i += 1 
 
     plt.xlabel("Epochs")
